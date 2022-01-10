@@ -6,7 +6,7 @@ const initialState = {
     { name: "item 4" },
     { name: "item 5" }
   ],
-  selected: ""
+  selected: [-1]
 };
 
 const list = (state = initialState, action) => {
@@ -19,9 +19,15 @@ const list = (state = initialState, action) => {
       };
     }
     case "SELECT": {
+      if(state.selected.includes(action.index)){
+        return {
+          ...state,
+          selected: [-1]
+        }
+      }
       return {
         ...state,
-        selected: action.index
+        selected: [action.index]
       };
     }
     default:

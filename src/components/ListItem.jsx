@@ -16,15 +16,23 @@ class ListItem extends Component {
   handleOnClick = (event) => {
     this.props.actions.select(this.props.index);
   };
+
+  shouldComponentUpdate(nextProps, nextState, nextContext)
+  {
+ console.log(nextProps.index)
+      console.log(this.props.index)
+    return nextProps.selected.includes(nextProps.index)  || this.props.selected.includes(this.props.index)
+  }
+
   render() {
     const { selected, index } = this.props;
-    console.log("hi");
+    console.log('hi')
     return (
       <li
         onClick={this.handleOnClick}
         style={{
           ...styles.default,
-          color: selected === index ? "steelblue" : "#333333"
+          color: selected == index ? "steelblue" : "#333333"
         }}
       >
         {this.props.name}

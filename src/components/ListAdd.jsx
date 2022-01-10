@@ -23,13 +23,15 @@ class ListAdd extends Component {
   };
 
   render() {
+    console.log(this.props.item)
+    const {  item,counter } = this.props;
     return (
       <div>
         <div>
           <input ref={"input"} onKeyPress={this.handleOnPress} />
-          <button onClick={() => this.handleOnClick}>+</button>
+          <button onClick={() => this.handleOnClick()}>+</button>
         </div>
-        <p>Последняя добавленная: {this.props.last}</p>
+        <p>Последняя добавленная: {item[counter-1].name}</p>
       </div>
     );
   }
@@ -38,5 +40,10 @@ class ListAdd extends Component {
 const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(listActions, dispatch) };
 };
-
-export default connect(null, mapDispatchToProps)(ListAdd);
+const mapStateToProps = (state) => {
+  return {
+    item: state.list.items,
+    counter: state.list.items.length
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ListAdd);
